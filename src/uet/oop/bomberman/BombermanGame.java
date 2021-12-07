@@ -7,24 +7,35 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.movableEntities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Baloon;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
+import uet.oop.bomberman.entities.staticEntities.Brick;
+import uet.oop.bomberman.entities.staticEntities.Grass;
+import uet.oop.bomberman.entities.staticEntities.Portal;
+import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class BombermanGame extends Application {
-    
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
-    
+
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 13;
+    public int level = 1;
+
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+    private List<Entity> enemies = new ArrayList<>();
+    private Bomber bomber;
+    public char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
 
     public static void main(String[] args) {
@@ -33,6 +44,8 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        loadLevel(level);
+
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -58,28 +71,66 @@ public class BombermanGame extends Application {
         timer.start();
 
         createMap();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
+        scene.setOnKeyPressed(event -> {
+            bomber.KeyPressedEvent(event.getCode());
+        });
+        scene.setOnKeyReleased(event -> bomber.KeyReleasedEvent(event.getCode()));
     }
 
     public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (mapMatrix[i][j] == '#') {
+                    stillObjects.add(new Wall(j, i, Sprite.wall.getFxImage()));
+                } else {
+                    stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+                    switch (mapMatrix[i][j]) {
+                        case '*':
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        case 'x':
+                            stillObjects.add(new Portal(j, i, Sprite.portal.getFxImage()));
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        case 'p':
+                            bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
+                            stillObjects.add(bomber);
+                            break;
+                        case '1':
+                            stillObjects.add(new Baloon(j, i, Sprite.balloom_left1.getFxImage()));
+                            break;
+                        case '2':
+                            stillObjects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                            break;
+                    }
                 }
-                else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                }
-                stillObjects.add(object);
             }
+        }
+    }
+
+    public void loadLevel(int _level) {
+        String levelPath = "res/levels/Level" + _level + ".txt";
+        try {
+            Scanner sc = new Scanner(new FileReader(levelPath));
+            sc.nextLine();
+
+            enemies.clear();
+            stillObjects.clear();
+
+            for (int i = 0; i < HEIGHT; i++) {
+                String mapRow = sc.nextLine();
+                for (int j = 0; j < WIDTH; j++) {
+                    mapMatrix[i][j] = mapRow.charAt(j);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     public void update() {
         entities.forEach(Entity::update);
+        bomber.update();
     }
 
     public void render() {
