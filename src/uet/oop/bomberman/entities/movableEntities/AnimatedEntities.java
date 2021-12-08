@@ -4,8 +4,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
 public abstract class AnimatedEntities extends Entity {
-    protected int newX;
-    protected int newY;
+    protected int newX = x;
+    protected int newY = y;
     protected int left = 0;
     protected int right = 0;
     protected int up = 0;
@@ -30,5 +30,12 @@ public abstract class AnimatedEntities extends Entity {
     public void goDown() {
         newY = y + 1;
     }
-
+    public void move() {
+        x = newX;
+        y = newY;
+    }
+    public void stay() {
+        newX = x;
+        newY = y;
+    }
 }

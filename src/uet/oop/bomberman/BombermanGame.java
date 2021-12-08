@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Baloon;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Grass;
@@ -17,6 +19,7 @@ import uet.oop.bomberman.entities.staticEntities.Portal;
 import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -31,9 +34,8 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Entity> enemies = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
     private Bomber bomber;
     public char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
@@ -94,7 +96,6 @@ public class BombermanGame extends Application {
                             break;
                         case 'p':
                             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
-                            stillObjects.add(bomber);
                             break;
                         case '1':
                             stillObjects.add(new Baloon(j, i, Sprite.balloom_left1.getFxImage()));
@@ -106,6 +107,7 @@ public class BombermanGame extends Application {
                 }
             }
         }
+        stillObjects.sort(new Layer());
     }
 
     public void loadLevel(int _level) {
@@ -128,14 +130,34 @@ public class BombermanGame extends Application {
         }
     }
 
+    public void Collisions() {
+        Rectangle r1 = bomber.bound();
+        //Bomber vs StillObjects
+        for (Entity stillObject : stillObjects) {
+            Rectangle r2 = stillObject.bound();
+            if (r1.intersects(r2)) {
+                if (bomber.collide(stillObject)) {
+                    bomber.move();
+                } else {
+                    bomber.stay();
+                }
+            }
+        }
+    }
+
     public void update() {
-        entities.forEach(Entity::update);
+        stillObjects.forEach(Entity::update);
         bomber.update();
+        Collisions();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        stillObjects.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+
+        for (int i = stillObjects.size() - 1; i >= 0; i--) {
+            stillObjects.get(i).render(gc);
+        }
+        //entities.forEach(g -> g.render(gc));
+        bomber.render(gc);
     }
 }

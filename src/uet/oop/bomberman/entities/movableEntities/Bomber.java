@@ -1,38 +1,37 @@
 package uet.oop.bomberman.entities.movableEntities;
 
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+
+import java.awt.*;
 
 public class Bomber extends AnimatedEntities {
     private KeyCode direction;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
+        layer = 1;
     }
 
     @Override
     public void update() {
         if (direction == KeyCode.LEFT) {
-            super.goLeft();
-            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 30).getFxImage();
+            goLeft();
+            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 40).getFxImage();
         }
         if (direction == KeyCode.RIGHT) {
-            super.goRight();
-            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 30).getFxImage();
+            goRight();
+            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 40).getFxImage();
         }
         if (direction == KeyCode.UP) {
-            super.goUp();
-            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 30).getFxImage();
+            goUp();
+            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 40).getFxImage();
         }
         if (direction == KeyCode.DOWN) {
-            super.goLeft();
-            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 30).getFxImage();
+            goDown();
+            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 40).getFxImage();
         }
     }
 
@@ -58,5 +57,14 @@ public class Bomber extends AnimatedEntities {
             }
         }
         direction = null;
+    }
+
+    @Override
+    public Rectangle bound() {
+        return new Rectangle(newX + 4, newY + 4, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE * 3 / 4);
+    }
+
+    public boolean collide(Entity e) {
+        return e.collide(this);
     }
 }
