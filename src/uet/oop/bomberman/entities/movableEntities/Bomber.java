@@ -16,6 +16,7 @@ public class Bomber extends AnimatedEntities {
     private List<Bomb> bombs = new ArrayList<>();
     private int _timeBetweenPutBombs;
     private int radius;
+    private boolean bombSet = false;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -52,9 +53,10 @@ public class Bomber extends AnimatedEntities {
     }
 
     public void KeyPressedEvent(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN || keyCode == KeyCode.SPACE) {
+        if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
             direction = keyCode;
         }
+        if (keyCode == KeyCode.SPACE) bombSet = true;
     }
 
     public void KeyReleasedEvent(KeyCode keyCode) {
@@ -73,6 +75,7 @@ public class Bomber extends AnimatedEntities {
             }
         }
         direction = null;
+        bombSet = false;
     }
 
 
@@ -85,7 +88,7 @@ public class Bomber extends AnimatedEntities {
                     BombermanGame.bomber.stay();
                }
     public void detectPlaceBomb() {
-        if (direction == KeyCode.SPACE && _timeBetweenPutBombs < 0) {
+        if (bombSet&& _timeBetweenPutBombs < 0) {
             placeBomb();
             _timeBetweenPutBombs = 30;
         }
