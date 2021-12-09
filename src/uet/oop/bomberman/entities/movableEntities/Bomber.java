@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.movableEntities;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -19,20 +20,21 @@ public class Bomber extends AnimatedEntities {
     public void update() {
         if (direction == KeyCode.LEFT) {
             goLeft();
-            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 40).getFxImage();
+            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 20).getFxImage();
         }
         if (direction == KeyCode.RIGHT) {
             goRight();
-            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 40).getFxImage();
+            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 20).getFxImage();
         }
         if (direction == KeyCode.UP) {
             goUp();
-            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 40).getFxImage();
+            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 20).getFxImage();
         }
         if (direction == KeyCode.DOWN) {
             goDown();
-            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 40).getFxImage();
+            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 20).getFxImage();
         }
+        calculateMove();
     }
 
     public void KeyPressedEvent(KeyCode keyCode) {
@@ -59,9 +61,22 @@ public class Bomber extends AnimatedEntities {
         direction = null;
     }
 
+    public void calculateMove(){
+        for (Entity e : BombermanGame.stillObjects) {
+            if (BombermanGame.bomber.bound().intersects(e.bound())) {
+               if (BombermanGame.bomber.collide(e)) {
+                    BombermanGame.bomber.move();
+                } else {
+                    BombermanGame.bomber.stay();
+               }
+            }
+        }
+    }
+
+
     @Override
     public Rectangle bound() {
-        return new Rectangle(newX + 4, newY + 4, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE * 3 / 4);
+        return new Rectangle(newX + 4, newY + 5, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE - 6);
     }
 
     public boolean collide(Entity e) {

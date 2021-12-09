@@ -34,9 +34,9 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    private List<Entity> stillObjects = new ArrayList<>();
-    private List<Enemy> enemies = new ArrayList<>();
-    private Bomber bomber;
+    public static List<Entity> stillObjects = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
+    public static Bomber bomber;
     public char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
 
@@ -98,10 +98,10 @@ public class BombermanGame extends Application {
                             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
                             break;
                         case '1':
-                            stillObjects.add(new Baloon(j, i, Sprite.balloom_left1.getFxImage()));
+                            enemies.add(new Baloon(j, i, Sprite.balloom_left1.getFxImage()));
                             break;
                         case '2':
-                            stillObjects.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                            enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
                             break;
                     }
                 }
@@ -130,25 +130,10 @@ public class BombermanGame extends Application {
         }
     }
 
-    public void Collisions() {
-        Rectangle r1 = bomber.bound();
-        //Bomber vs StillObjects
-        for (Entity stillObject : stillObjects) {
-            Rectangle r2 = stillObject.bound();
-            if (r1.intersects(r2)) {
-                if (bomber.collide(stillObject)) {
-                    bomber.move();
-                } else {
-                    bomber.stay();
-                }
-            }
-        }
-    }
-
     public void update() {
         stillObjects.forEach(Entity::update);
+        enemies.forEach(Entity::update);
         bomber.update();
-        Collisions();
     }
 
     public void render() {
@@ -157,7 +142,7 @@ public class BombermanGame extends Application {
         for (int i = stillObjects.size() - 1; i >= 0; i--) {
             stillObjects.get(i).render(gc);
         }
-        //entities.forEach(g -> g.render(gc));
+        enemies.forEach(e -> e.render(gc));
         bomber.render(gc);
     }
 }

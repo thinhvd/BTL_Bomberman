@@ -34,7 +34,7 @@ public abstract class Entity {
     public abstract void update();
 
     public Rectangle bound() {
-        return new Rectangle(x + 3, y - 2, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+        return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 
 
