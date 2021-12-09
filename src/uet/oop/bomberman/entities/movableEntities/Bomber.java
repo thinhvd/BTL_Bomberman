@@ -7,13 +7,21 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bomber extends AnimatedEntities {
     private KeyCode direction;
+    private int bombRemain;
+    private List<Bomb> bombs = new ArrayList<>();
+    private int _timeBetweenPutBombs;
+    private int radius;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
+        bombRemain = 1;
+        radius = 1;
     }
 
     @Override
@@ -34,11 +42,17 @@ public class Bomber extends AnimatedEntities {
             goDown();
             img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 20).getFxImage();
         }
+
         calculateMove();
+
+        if(_timeBetweenPutBombs < -10000) _timeBetweenPutBombs = 0;
+        else _timeBetweenPutBombs--;
+        detectPlaceBomb();
+        checkBomb();
     }
 
     public void KeyPressedEvent(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
+        if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN || keyCode == KeyCode.SPACE) {
             direction = keyCode;
         }
     }
@@ -61,6 +75,7 @@ public class Bomber extends AnimatedEntities {
         direction = null;
     }
 
+
     public void calculateMove(){
         for (Entity e : BombermanGame.stillObjects) {
             if (BombermanGame.bomber.bound().intersects(e.bound())) {
@@ -69,10 +84,37 @@ public class Bomber extends AnimatedEntities {
                 } else {
                     BombermanGame.bomber.stay();
                }
+    public void detectPlaceBomb() {
+        if (direction == KeyCode.SPACE && _timeBetweenPutBombs < 0) {
+            placeBomb();
+            _timeBetweenPutBombs = 30;
+        }
+    }
+
+    public void placeBomb() {
+        if (bombRemain > 0) {
+            Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
+            for (Bomb b : bombs) {
+                if (canvasToBomb(x) == b.getX() && canvasToBomb(y) == b.getY()) return;
+            }
+            bombRemain--;
+            bombs.add(bomb);
+        }
+    }
+
+    public void checkBomb() {
+        for (int i = 0; i < bombs.size(); i++) {
+            Bomb bomb = bombs.get(i);
+            if (!bomb.isAlive()) {
+                bombs.remove(bomb);
+                bombRemain++;
             }
         }
     }
 
+    public List<Bomb> getBombs() {
+        return bombs;
+    }
 
     @Override
     public Rectangle bound() {
