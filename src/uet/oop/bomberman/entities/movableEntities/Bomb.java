@@ -1,12 +1,8 @@
 package uet.oop.bomberman.entities.movableEntities;
 
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
-
-import java.util.PrimitiveIterator;
-import java.util.Random;
 
 public class Bomb extends AnimatedEntities {
     int _timeToExplode = 120;
