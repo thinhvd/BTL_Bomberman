@@ -8,11 +8,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.Layer;
+import uet.oop.bomberman.entities.movableEntities.Bomb;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Baloon;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
+import uet.oop.bomberman.entities.movableEntities.Flame;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Grass;
 import uet.oop.bomberman.entities.staticEntities.Portal;
@@ -36,6 +38,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Enemy> enemies = new ArrayList<>();
+    public static List<Flame> flames = new ArrayList<>();
     private Bomber bomber;
     public char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
@@ -148,6 +151,13 @@ public class BombermanGame extends Application {
     public void update() {
         stillObjects.forEach(Entity::update);
         bomber.update();
+        List<Bomb> bombs = bomber.getBombs();
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+        }
+        for (int i = 0; i < flames.size(); i++) {
+            flames.get(i).update();
+        }
         Collisions();
     }
 
@@ -159,5 +169,9 @@ public class BombermanGame extends Application {
         }
         //entities.forEach(g -> g.render(gc));
         bomber.render(gc);
+        List<Bomb> bombs = bomber.getBombs();
+        bombs.forEach(g -> g.render(gc));
+        flames.forEach(g -> g.render(gc));
+
     }
 }

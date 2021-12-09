@@ -15,12 +15,18 @@ public abstract class Entity {
 
     protected int layer;
     protected Image img;
+    protected boolean alive = true;
 
     //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
     public Entity(int xUnit, int yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+    }
+
+    public Entity(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public int getLayer() {
