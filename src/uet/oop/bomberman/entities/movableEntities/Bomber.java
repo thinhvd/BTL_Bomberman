@@ -46,7 +46,7 @@ public class Bomber extends AnimatedEntities {
 
         calculateMove();
 
-        if(_timeBetweenPutBombs < -10000) _timeBetweenPutBombs = 0;
+        if (_timeBetweenPutBombs < -10000) _timeBetweenPutBombs = 0;
         else _timeBetweenPutBombs--;
         detectPlaceBomb();
         checkBomb();
@@ -79,16 +79,20 @@ public class Bomber extends AnimatedEntities {
     }
 
 
-    public void calculateMove(){
+    public void calculateMove() {
         for (Entity e : BombermanGame.stillObjects) {
             if (BombermanGame.bomber.bound().intersects(e.bound())) {
-               if (BombermanGame.bomber.collide(e)) {
+                if (BombermanGame.bomber.collide(e)) {
                     BombermanGame.bomber.move();
                 } else {
                     BombermanGame.bomber.stay();
-               }
+                }
+            }
+        }
+    }
+
     public void detectPlaceBomb() {
-        if (bombSet&& _timeBetweenPutBombs < 0) {
+        if (bombSet && _timeBetweenPutBombs < 0) {
             placeBomb();
             _timeBetweenPutBombs = 30;
         }
