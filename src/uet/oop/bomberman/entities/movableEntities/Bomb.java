@@ -5,7 +5,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends AnimatedEntities {
-    int _timeToExplode = 120;
+    int _timeToExplode = 200;
     int _timeToFlame = 40;//delete later
     boolean bombSet = false;// delete later
     private int radius;

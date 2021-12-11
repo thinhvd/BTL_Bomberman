@@ -168,4 +168,14 @@ public class BombermanGame extends Application {
         flames.forEach(g -> g.render(gc));
 
     }
+
+    public static Entity getEntity(int x, int y) {
+        int i = 0;
+        while (i < stillObjects.size()) {
+            if (stillObjects.get(i).getX() / Sprite.SCALED_SIZE == x && stillObjects.get(i).getY() / Sprite.SCALED_SIZE == y)
+                break;
+            i++;
+        }
+        return stillObjects.get(i);
+    }
 }
