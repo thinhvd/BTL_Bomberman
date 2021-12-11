@@ -116,7 +116,7 @@ public class Bomber extends AnimatedEntities {
     public void detectPlaceBomb() {
         if (bombSet && _timeBetweenPutBombs < 0) {
             placeBomb();
-            _timeBetweenPutBombs = 30;
+            _timeBetweenPutBombs = 50;
         }
     }
 
