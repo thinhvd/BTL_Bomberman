@@ -15,13 +15,9 @@ import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
 import uet.oop.bomberman.entities.movableEntities.Flame;
-import uet.oop.bomberman.entities.staticEntities.Brick;
-import uet.oop.bomberman.entities.staticEntities.Grass;
-import uet.oop.bomberman.entities.staticEntities.Portal;
-import uet.oop.bomberman.entities.staticEntities.Wall;
+import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -109,6 +105,18 @@ public class BombermanGame extends Application {
                             break;
                         case '2':
                             enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                            break;
+                        case 'b':
+                            stillObjects.add(new bombItem(j,i,Sprite.powerup_bombs.getFxImage()));
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        case 'f':
+                            stillObjects.add(new bombItem(j,i,Sprite.powerup_flames.getFxImage()));
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
+                            break;
+                        case 's':
+                            stillObjects.add(new bombItem(j,i,Sprite.powerup_speed.getFxImage()));
+                            stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                     }
                 }
