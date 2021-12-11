@@ -39,10 +39,17 @@ public abstract class Entity {
 
     public abstract void update();
 
+    public boolean isAlive() {
+        return this.alive;
+    }
+
     public Rectangle bound() {
         return new Rectangle(x, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
     }
 
+    public Rectangle bound(int a, int b) {
+        return new Rectangle(a, b, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
+    }
 
     /**
      * Kiem tra va cham.
