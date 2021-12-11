@@ -26,18 +26,18 @@ public abstract class AnimatedEntities extends Entity {
     }
 
     public void goLeft() {
-        newX = x - 3;
+        newX = x - 1;
     }
 
     public void goRight() {
-        newX = x + 3;
+        newX = x + 1;
     }
     public void goUp() {
-        newY = y - 3;
+        newY = y - 1;
     }
 
     public void goDown() {
-        newY = y + 3;
+        newY = y + 1;
     }
     public void move() {
         x = newX;
