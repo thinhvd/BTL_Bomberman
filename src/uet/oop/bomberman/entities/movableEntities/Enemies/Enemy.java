@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.AnimatedEntities;
+import uet.oop.bomberman.entities.movableEntities.Bomber;
 
 public abstract class Enemy extends AnimatedEntities {
     public Enemy (int x, int y, Image img) {
@@ -13,6 +14,15 @@ public abstract class Enemy extends AnimatedEntities {
     public void calculateMove(){
         for (Enemy e : BombermanGame.enemies) {
             for (Entity o : BombermanGame.stillObjects) {
+                if (e.bound().intersects(o.bound())) {
+                    if (e.collide(o)) {
+                        e.move();
+                    } else {
+                        e.stay();
+                    }
+                }
+            }
+            for (Entity o : Bomber.bombs) {
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         e.move();

@@ -19,7 +19,7 @@ public class Flame extends Entity {
     private int top;
     private int down;
     private int _timeToVanish = 20;
-    int animate;
+    private int animate = 0;
 
     public Flame(int x, int y, Image img, String direction) {
         super(x, y, img);

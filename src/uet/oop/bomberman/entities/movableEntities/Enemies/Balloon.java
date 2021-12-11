@@ -79,7 +79,7 @@ public class Balloon extends Enemy {
         if (e.bound().intersects(this.bound()) && e instanceof Bomber) {
             return e.collide(this);
         }
-        if (e instanceof Wall || e instanceof Brick) return e.collide(this);
+        if (e instanceof Wall || e instanceof Brick || e instanceof Bomb) return e.collide(this);
         return true;
     }
 

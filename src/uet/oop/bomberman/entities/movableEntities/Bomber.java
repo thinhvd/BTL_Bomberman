@@ -17,7 +17,7 @@ import java.util.List;
 public class Bomber extends AnimatedEntities {
     private KeyCode direction;
     private int bombRemain;
-    private List<Bomb> bombs = new ArrayList<>();
+    public static List<Bomb> bombs = new ArrayList<>();
     private int _timeBetweenPutBombs;
     private int radius;
     private boolean bombSet = false;
@@ -115,7 +115,7 @@ public class Bomber extends AnimatedEntities {
     public void detectPlaceBomb() {
         if (bombSet && _timeBetweenPutBombs < 0) {
             placeBomb();
-            _timeBetweenPutBombs = 30;
+            _timeBetweenPutBombs = 50;
         }
     }
 
