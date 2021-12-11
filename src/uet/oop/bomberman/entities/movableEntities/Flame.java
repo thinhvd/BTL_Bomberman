@@ -3,9 +3,15 @@ package uet.oop.bomberman.entities.movableEntities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
+import uet.oop.bomberman.entities.staticEntities.Brick;
+import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Flame extends Entity{
+import java.awt.*;
+
+public class Flame extends Entity {
     private String direction;
     private int radius;
     private int right;
@@ -15,30 +21,37 @@ public class Flame extends Entity{
     private int _timeToVanish = 20;
     int animate;
 
-    public Flame (int x, int y, Image img, String direction) {
+    public Flame(int x, int y, Image img, String direction) {
         super(x, y, img);
         this.radius = 1;
         this.direction = direction;
     }
 
-    public Flame (int x, int y) {
+    public Flame(int x, int y) {
         super(x, y);
         this.radius = 1;
     }
 
     @Override
     public void update() {
+        collideCheck();
         if (_timeToVanish > 0) {
             _timeToVanish--;
-            if (direction.equals("middle")) img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate++, 20).getFxImage();
-            if (direction.equals("topLast")) img = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, animate++, 20).getFxImage();
-            if (direction.equals("downLast")) img = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, animate++, 20).getFxImage();
-            if (direction.equals("rightLast")) img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, animate++, 20).getFxImage();
-            if (direction.equals("leftLast")) img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, animate++, 20).getFxImage();
-            if (direction.equals("vertical")) img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate++, 20).getFxImage();
-            if (direction.equals("horizontal")) img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate++, 20).getFxImage();
-        }
-        else {
+            if (direction.equals("middle"))
+                img = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, animate++, 20).getFxImage();
+            if (direction.equals("topLast"))
+                img = Sprite.movingSprite(Sprite.explosion_vertical_top_last, Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, animate++, 20).getFxImage();
+            if (direction.equals("downLast"))
+                img = Sprite.movingSprite(Sprite.explosion_vertical_down_last, Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, animate++, 20).getFxImage();
+            if (direction.equals("rightLast"))
+                img = Sprite.movingSprite(Sprite.explosion_horizontal_right_last, Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, animate++, 20).getFxImage();
+            if (direction.equals("leftLast"))
+                img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, animate++, 20).getFxImage();
+            if (direction.equals("vertical"))
+                img = Sprite.movingSprite(Sprite.explosion_vertical, Sprite.explosion_vertical1, Sprite.explosion_vertical2, animate++, 20).getFxImage();
+            if (direction.equals("horizontal"))
+                img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, animate++, 20).getFxImage();
+        } else {
             BombermanGame.flames.remove(this);
         }
     }
@@ -53,6 +66,11 @@ public class Flame extends Entity{
 
     private void Right() {
         for (int i = 0; i < radius; i++) {
+            // Flame flame = new Flame(x + Sprite.SCALED_SIZE * (i + 1), y);
+            //for (Entity o : BombermanGame.stillObjects) {
+            //     flame.collide(o);
+            //}
+            //Rectangle temp = this.bound(x, y - Sprite.SCALED_SIZE * (i + 1));
             right = i + 1;
         }
     }
@@ -84,7 +102,7 @@ public class Flame extends Entity{
                 //flame.img = Sprite.explosion_horizontal_right_last.getFxImage();
                 flame1.direction = "middle";
                 flame.direction = "rightLast";
-            }else {
+            } else {
                 //flame.img = Sprite.explosion_horizontal.getFxImage();
                 flame.direction = "horizontal";
             }
@@ -96,7 +114,7 @@ public class Flame extends Entity{
             if (i == left - 1) {
                 //flame.img = Sprite.explosion_horizontal_left_last.getFxImage();
                 flame.direction = "leftLast";
-            }else {
+            } else {
                 //flame.img = Sprite.explosion_horizontal.getFxImage();
                 flame.direction = "horizontal";
             }
@@ -107,7 +125,7 @@ public class Flame extends Entity{
             if (i == top - 1) {
                 //flame.img = Sprite.explosion_vertical_top_last.getFxImage();
                 flame.direction = "topLast";
-            }else {
+            } else {
                 //flame.img = Sprite.explosion_vertical.getFxImage();
                 flame.direction = "vertical";
             }
@@ -118,7 +136,7 @@ public class Flame extends Entity{
             if (i == down - 1) {
                 //flame.img = Sprite.explosion_vertical_down_last.getFxImage();
                 flame.direction = "downLast";
-            }else {
+            } else {
                 //flame.img = Sprite.explosion_vertical.getFxImage();
                 flame.direction = "vertical";
             }
@@ -132,6 +150,27 @@ public class Flame extends Entity{
 
     @Override
     public boolean collide(Entity e) {
-        return false;
+        if (e.bound().intersects(this.bound())) {
+            if (e instanceof Brick) {
+                return e.collide(this);
+            }
+            if (e instanceof  Wall) {
+                return e.collide(this);
+            }
+            if (e instanceof AnimatedEntities) {
+                return e.collide(this);
+            }
+        }
+        return true;
+    }
+
+    public void collideCheck() {
+        for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+            this.collide(BombermanGame.stillObjects.get(i));
+        }
+        for (int i = 0; i < BombermanGame.enemies.size(); i++) {
+            this.collide(BombermanGame.enemies.get(i));
+        }
+        this.collide(BombermanGame.bomber);
     }
 }

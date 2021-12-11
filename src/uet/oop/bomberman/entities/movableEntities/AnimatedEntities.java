@@ -1,7 +1,9 @@
 package uet.oop.bomberman.entities.movableEntities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
@@ -16,7 +18,7 @@ public abstract class AnimatedEntities extends Entity {
     protected int down = 0;
 
     public int canvasToBomb(int a) {
-        return Math.round(a + 4) / Sprite.SCALED_SIZE;
+        return Math.round(a + 10) / Sprite.SCALED_SIZE;
     }
 
     public AnimatedEntities(int x, int y, Image img) {
@@ -24,18 +26,18 @@ public abstract class AnimatedEntities extends Entity {
     }
 
     public void goLeft() {
-        newX = x - 1;
+        newX = x - 3;
     }
 
     public void goRight() {
-        newX = x + 1;
+        newX = x + 3;
     }
     public void goUp() {
-        newY = y - 1;
+        newY = y - 3;
     }
 
     public void goDown() {
-        newY = y + 1;
+        newY = y + 3;
     }
     public void move() {
         x = newX;

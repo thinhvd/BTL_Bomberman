@@ -11,7 +11,7 @@ import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.movableEntities.Bomb;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Baloon;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
 import uet.oop.bomberman.entities.movableEntities.Flame;
@@ -105,7 +105,7 @@ public class BombermanGame extends Application {
                             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
                             break;
                         case '1':
-                            enemies.add(new Baloon(j, i, Sprite.balloom_left1.getFxImage()));
+                            enemies.add(new Balloon(j, i, Sprite.balloom_left1.getFxImage()));
                             break;
                         case '2':
                             enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
@@ -138,8 +138,12 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        stillObjects.forEach(Entity::update);
-        enemies.forEach(Entity::update);
+        for (int i = 0; i < stillObjects.size(); i++) {
+            stillObjects.get(i).update();
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+        }
         bomber.update();
 
         List<Bomb> bombs = bomber.getBombs();

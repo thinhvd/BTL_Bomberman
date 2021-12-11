@@ -4,6 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
+import uet.oop.bomberman.entities.staticEntities.Brick;
+import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
@@ -17,6 +21,8 @@ public class Bomber extends AnimatedEntities {
     private int _timeBetweenPutBombs;
     private int radius;
     private boolean bombSet = false;
+    private int _timeToVanish = 40;
+    private int animate = 0;
 
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
@@ -27,25 +33,40 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public void update() {
-        if (direction == KeyCode.LEFT) {
-            goLeft();
-            img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 30).getFxImage();
-        }
-        if (direction == KeyCode.RIGHT) {
-            goRight();
-            img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 30).getFxImage();
-        }
-        if (direction == KeyCode.UP) {
-            goUp();
-            img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 30).getFxImage();
-        }
-        if (direction == KeyCode.DOWN) {
-            goDown();
-            img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 30).getFxImage();
-        }
+        if (!isAlive()) {
+            if (_timeToVanish > 0) {
+                _timeToVanish--;
+                img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate++, 60).getFxImage();
+            }
+            else {
+                BombermanGame.bomber = new Bomber(Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, Sprite.explosion_horizontal.getFxImage());
+                //x = Sprite.SCALED_SIZE;
+                //y = Sprite.SCALED_SIZE; doan code neu lam hoi sinh
+                //alive = true;
+                //_timeToVanish = 20;
+            }
+        } else {
+            if (direction == KeyCode.LEFT) {
+                goLeft();
+                img = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, left++, 20).getFxImage();
+            }
+            if (direction == KeyCode.RIGHT) {
+                goRight();
+                img = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, right++, 20).getFxImage();
+            }
+            if (direction == KeyCode.UP) {
+                goUp();
+                img = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, up++, 20).getFxImage();
+            }
+            if (direction == KeyCode.DOWN) {
+                goDown();
+                img = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, down++, 20).getFxImage();
+            }
 
-        calculateMove();
+            calculateMove();
 
+
+        }
         if (_timeBetweenPutBombs < -10000) _timeBetweenPutBombs = 0;
         else _timeBetweenPutBombs--;
         detectPlaceBomb();
@@ -129,6 +150,14 @@ public class Bomber extends AnimatedEntities {
     }
 
     public boolean collide(Entity e) {
-        return e.collide(this);
+        if (e instanceof Flame) { // sai o day || e instanceof Enemy
+            this.alive = false;
+            return true;
+        }
+        if (e instanceof Enemy) {
+            this.alive = false;
+        }
+        if (e instanceof Brick || e instanceof Wall) return e.collide(this);
+        return true;
     }
 }

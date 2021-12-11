@@ -39,10 +39,6 @@ public class Bomb extends AnimatedEntities {
         alive = false;
     }
 
-    public boolean isAlive() {
-        return alive;
-    }
-
     @Override
     public boolean collide(Entity e) {
         return false;
