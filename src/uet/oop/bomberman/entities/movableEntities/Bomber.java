@@ -40,11 +40,7 @@ public class Bomber extends AnimatedEntities {
                 img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, animate++, 60).getFxImage();
             }
             else {
-                BombermanGame.bomber = new Bomber(Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, Sprite.explosion_horizontal.getFxImage());
-                //x = Sprite.SCALED_SIZE;
-                //y = Sprite.SCALED_SIZE; doan code neu lam hoi sinh
-                //alive = true;
-                //_timeToVanish = 20;
+                BombermanGame.bomber = new Bomber(1,1, Sprite.player_left.getFxImage());
             }
         } else {
             if (direction == KeyCode.LEFT) {
