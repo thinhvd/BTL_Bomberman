@@ -10,12 +10,13 @@ import java.util.Random;
 public class Oneal extends Enemy {
     public Oneal(int x, int y, Image img) {
         super(x, y, img);
+        speed = 2;
     }
 
     @Override
     public void chooseDirection() {
         Random random = new Random();
-        direction = random.nextInt(4s);
+        direction = random.nextInt(4);
     }
 
     public void spriteLeft() {

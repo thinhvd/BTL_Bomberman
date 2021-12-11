@@ -12,6 +12,7 @@ import java.awt.*;
 public abstract class AnimatedEntities extends Entity {
     protected int newX = x;
     protected int newY = y;
+    protected int speed;
     protected int left = 0;
     protected int right = 0;
     protected int up = 0;
@@ -26,18 +27,18 @@ public abstract class AnimatedEntities extends Entity {
     }
 
     public void goLeft() {
-        newX = x - 1;
+        newX = x - speed;
     }
 
     public void goRight() {
-        newX = x + 1;
+        newX = x + speed;
     }
     public void goUp() {
-        newY = y - 1;
+        newY = y - speed;
     }
 
     public void goDown() {
-        newY = y + 1;
+        newY = y + speed;
     }
     public void move() {
         x = newX;
