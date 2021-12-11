@@ -14,7 +14,7 @@ public class Bomb extends AnimatedEntities {
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
         layer = 2;
-        this.radius = 1;
+        //this.radius = 1;
     }
 
     public Bomb(int x, int y, Image img, int radius) {
@@ -26,7 +26,7 @@ public class Bomb extends AnimatedEntities {
     @Override
     public void update() {
         _timeToExplode--;
-        if (_timeToExplode == 0) {
+        if (_timeToExplode < 0) {
             explode();
         }
         img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, animate++, 52).getFxImage();
@@ -41,6 +41,10 @@ public class Bomb extends AnimatedEntities {
 
     @Override
     public boolean collide(Entity e) {
+        if (e instanceof Flame) {
+            this._timeToExplode = 0;
+            return false;
+        }
         return false;
     }
 

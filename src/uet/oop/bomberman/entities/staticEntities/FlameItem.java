@@ -8,9 +8,4 @@ public class FlameItem extends Item {
         super(x, y, img);
         layer = 1;
     }
-
-    @Override
-    public void update() {
-
-    }
 }

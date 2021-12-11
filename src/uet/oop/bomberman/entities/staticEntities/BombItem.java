@@ -8,10 +8,4 @@ public class BombItem extends Item {
         super(x, y, img);
         layer = 1;
     }
-
-    @Override
-    public void update() {
-
-    }
-
 }

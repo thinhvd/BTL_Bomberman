@@ -1,7 +1,9 @@
 package uet.oop.bomberman.entities.staticEntities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Bomber;
 
 public abstract class Item extends Entity {
     public Item(int x, int y, Image img) {
@@ -11,11 +13,12 @@ public abstract class Item extends Entity {
 
     @Override
     public void update() {
-
+        if (!isAlive()) BombermanGame.stillObjects.remove(this);
     }
 
     @Override
     public boolean collide(Entity e) {
+        if (e instanceof Bomber) this.alive = false;
         return true;
     }
 }

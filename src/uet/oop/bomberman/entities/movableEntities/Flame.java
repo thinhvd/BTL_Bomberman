@@ -23,13 +23,13 @@ public class Flame extends Entity {
 
     public Flame(int x, int y, Image img, String direction) {
         super(x, y, img);
-        this.radius = 1;
+        //this.radius = 1;
         this.direction = direction;
     }
 
     public Flame(int x, int y) {
         super(x, y);
-        this.radius = 1;
+        //this.radius = 1;
     }
 
     @Override
@@ -66,56 +66,82 @@ public class Flame extends Entity {
 
     private void Right() {
         for (int i = 0; i < radius; i++) {
-            // Flame flame = new Flame(x + Sprite.SCALED_SIZE * (i + 1), y);
-            //for (Entity o : BombermanGame.stillObjects) {
-            //     flame.collide(o);
-            //}
-            //Rectangle temp = this.bound(x, y - Sprite.SCALED_SIZE * (i + 1));
+            Rectangle flame = bound(x + Sprite.SCALED_SIZE * (i + 1), y);
+            if (meetWall(flame)) {
+                right = i;
+                return;
+            }
+            if (meetBrick(flame)) {
+                right = i + 1;
+                return;
+            }
             right = i + 1;
         }
     }
 
     private void Left() {
         for (int i = 0; i < radius; i++) {
+            Rectangle flame = bound(x - Sprite.SCALED_SIZE * (i + 1), y);
+            if (meetWall(flame)) {
+                left = i;
+                return;
+            }
+            if (meetBrick(flame)) {
+                left = i + 1;
+                return;
+            }
             left = i + 1;
         }
     }
 
     private void Top() {
         for (int i = 0; i < radius; i++) {
+            Rectangle flame = bound(x, y - Sprite.SCALED_SIZE * (i + 1));
+            if (meetWall(flame)) {
+                top = i;
+                return;
+            }
+            if (meetBrick(flame)) {
+                top = i + 1;
+                return;
+            }
             top = i + 1;
         }
     }
 
     private void Down() {
         for (int i = 0; i < radius; i++) {
+            Rectangle flame = bound(x, y + Sprite.SCALED_SIZE * (i + 1));
+            if (meetWall(flame)) {
+                down = i;
+                return;
+            }
+            if (meetBrick(flame)) {
+                down = i + 1;
+                return;
+            }
             down = i + 1;
         }
     }
 
     public void createFlame() {
-        //BombermanGame.flames.add(new Flame(x, y, Sprite.bomb_exploded.getFxImage(), "middle"));
+        Flame middleFlame = new Flame(x, y);
+        middleFlame.direction = "middle";
+        BombermanGame.flames.add(middleFlame);
         for (int i = 0; i < right; i++) {
             Flame flame = new Flame(x + Sprite.SCALED_SIZE * (i + 1), y);
-            Flame flame1 = new Flame(x, y);
             if (i == right - 1) {
-                //flame.img = Sprite.explosion_horizontal_right_last.getFxImage();
-                flame1.direction = "middle";
                 flame.direction = "rightLast";
             } else {
-                //flame.img = Sprite.explosion_horizontal.getFxImage();
                 flame.direction = "horizontal";
             }
             BombermanGame.flames.add(flame);
-            BombermanGame.flames.add(flame1);
         }
         for (int i = 0; i < left; i++) {
             Flame flame = new Flame(x - Sprite.SCALED_SIZE * (i + 1), y);
             if (i == left - 1) {
-                //flame.img = Sprite.explosion_horizontal_left_last.getFxImage();
                 flame.direction = "leftLast";
             } else {
-                //flame.img = Sprite.explosion_horizontal.getFxImage();
                 flame.direction = "horizontal";
             }
             BombermanGame.flames.add(flame);
@@ -123,10 +149,8 @@ public class Flame extends Entity {
         for (int i = 0; i < top; i++) {
             Flame flame = new Flame(x, y - Sprite.SCALED_SIZE * (i + 1));
             if (i == top - 1) {
-                //flame.img = Sprite.explosion_vertical_top_last.getFxImage();
                 flame.direction = "topLast";
             } else {
-                //flame.img = Sprite.explosion_vertical.getFxImage();
                 flame.direction = "vertical";
             }
             BombermanGame.flames.add(flame);
@@ -134,10 +158,8 @@ public class Flame extends Entity {
         for (int i = 0; i < down; i++) {
             Flame flame = new Flame(x, y + Sprite.SCALED_SIZE * (i + 1));
             if (i == down - 1) {
-                //flame.img = Sprite.explosion_vertical_down_last.getFxImage();
                 flame.direction = "downLast";
             } else {
-                //flame.img = Sprite.explosion_vertical.getFxImage();
                 flame.direction = "vertical";
             }
             BombermanGame.flames.add(flame);
@@ -146,6 +168,20 @@ public class Flame extends Entity {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public boolean meetWall(Rectangle r){
+        for(Entity e : BombermanGame.stillObjects){
+            if(r.intersects(e.bound()) && e instanceof Wall) return true;
+        }
+        return false;
+    }
+
+    public boolean meetBrick(Rectangle r){
+        for(Entity e : BombermanGame.stillObjects){
+            if(r.intersects(e.bound()) && e instanceof Brick) return true;
+        }
+        return false;
     }
 
     @Override
@@ -172,5 +208,8 @@ public class Flame extends Entity {
             this.collide(BombermanGame.enemies.get(i));
         }
         this.collide(BombermanGame.bomber);
+        for (int i = 0; i < Bomber.bombs.size(); i++) {
+            this.collide((Bomber.bombs.get(i)));
+        }
     }
 }

@@ -111,11 +111,11 @@ public class BombermanGame extends Application {
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 'f':
-                            stillObjects.add(new BombItem(j,i,Sprite.powerup_flames.getFxImage()));
+                            stillObjects.add(new FlameItem(j,i,Sprite.powerup_flames.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 's':
-                            stillObjects.add(new BombItem(j,i,Sprite.powerup_speed.getFxImage()));
+                            stillObjects.add(new SpeedItem(j,i,Sprite.powerup_speed.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                     }

@@ -6,8 +6,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
-import uet.oop.bomberman.entities.staticEntities.Brick;
-import uet.oop.bomberman.entities.staticEntities.Wall;
+import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
@@ -22,6 +21,7 @@ public class Bomber extends AnimatedEntities {
     private int radius;
     private boolean bombSet = false;
     private int _timeToVanish = 40;
+    private int _timeToReborn = 40;
     private int animate = 0;
 
     public Bomber(int x, int y, Image img) {
@@ -153,6 +153,20 @@ public class Bomber extends AnimatedEntities {
         }
         if (e instanceof Enemy) {
             this.alive = false;
+        }
+        if (e instanceof Item) {
+            if (e instanceof SpeedItem) {
+                e.collide(this);
+                this.speed++;
+            }
+            if (e instanceof BombItem) {
+                e.collide(this);
+                this.bombRemain++;
+            }
+            if (e instanceof FlameItem) {
+                e.collide(this);
+                this.radius++;
+            }
         }
         if (e instanceof Brick || e instanceof Wall) return e.collide(this);
         return true;
