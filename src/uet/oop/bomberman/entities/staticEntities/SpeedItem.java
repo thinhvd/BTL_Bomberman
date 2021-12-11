@@ -3,8 +3,8 @@ package uet.oop.bomberman.entities.staticEntities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
-public class flameItem extends Entity {
-    public flameItem(int x, int y, Image img) {
+public class SpeedItem extends Item {
+    public SpeedItem(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
     }
@@ -14,8 +14,4 @@ public class flameItem extends Entity {
 
     }
 
-    @Override
-    public boolean collide(Entity e) {
-        return true;
-    }
 }

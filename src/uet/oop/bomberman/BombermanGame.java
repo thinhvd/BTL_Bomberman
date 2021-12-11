@@ -107,15 +107,15 @@ public class BombermanGame extends Application {
                             enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
                             break;
                         case 'b':
-                            stillObjects.add(new bombItem(j,i,Sprite.powerup_bombs.getFxImage()));
+                            stillObjects.add(new BombItem(j,i,Sprite.powerup_bombs.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 'f':
-                            stillObjects.add(new bombItem(j,i,Sprite.powerup_flames.getFxImage()));
+                            stillObjects.add(new BombItem(j,i,Sprite.powerup_flames.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 's':
-                            stillObjects.add(new bombItem(j,i,Sprite.powerup_speed.getFxImage()));
+                            stillObjects.add(new BombItem(j,i,Sprite.powerup_speed.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                     }
