@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.movableEntities.Enemies;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Flame;
 import uet.oop.bomberman.graphics.Sprite;
@@ -15,8 +16,10 @@ public class Oneal extends Enemy {
 
     @Override
     public void chooseDirection() {
-        Random random = new Random();
-        direction = random.nextInt(4);
+        if (BombermanGame.bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE < 0) direction = 0;
+        if (BombermanGame.bomber.getX() / Sprite.SCALED_SIZE - x / Sprite.SCALED_SIZE > 0) direction = 1;
+        if (BombermanGame.bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE < 0) direction = 2;
+        if (BombermanGame.bomber.getY() / Sprite.SCALED_SIZE - y / Sprite.SCALED_SIZE > 0) direction = 3;
     }
 
     public void spriteLeft() {
