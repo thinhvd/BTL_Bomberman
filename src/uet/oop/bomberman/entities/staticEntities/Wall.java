@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.staticEntities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Enemies.Ghost;
 
 public class Wall extends Entity {
 
@@ -17,6 +18,9 @@ public class Wall extends Entity {
 
     @Override
     public boolean collide(Entity e) {
+        if (e instanceof Ghost) {
+            return true;
+        }
         return false; //fix later
     }
 }

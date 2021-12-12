@@ -54,7 +54,7 @@ public abstract class Enemy extends AnimatedEntities {
         for (Enemy e : BombermanGame.enemies) {
             for (Bomb o : Bomber.bombs) {
                 if (e.bound().intersects(o.bound())) {
-                        e.stay();
+                    e.stay();
                 }
             }
             for (Enemy o : BombermanGame.enemies) {

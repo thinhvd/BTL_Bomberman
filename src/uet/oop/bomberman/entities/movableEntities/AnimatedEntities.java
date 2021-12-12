@@ -44,4 +44,12 @@ public abstract class AnimatedEntities extends Entity {
         newX = x;
         newY = y;
     }
+
+    public int getNewX() {
+        return newX;
+    }
+
+    public int getNewY() {
+        return newY;
+    }
 }

@@ -11,9 +11,7 @@ import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.movableEntities.Bomb;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Oneal;
+import uet.oop.bomberman.entities.movableEntities.Enemies.*;
 import uet.oop.bomberman.entities.movableEntities.Flame;
 import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -75,7 +73,6 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        createMap();
         scene.setOnKeyPressed(event -> {
             bomber.KeyPressedEvent(event.getCode());
         });
@@ -105,6 +102,12 @@ public class BombermanGame extends Application {
                             break;
                         case '2':
                             enemies.add(new Oneal(j, i, Sprite.oneal_left1.getFxImage()));
+                            break;
+                        case '4':
+                            enemies.add(new Ghost(j, i, Sprite.ghost_left1.getFxImage()));
+                            break;
+                        case '5':
+                            enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));
                             break;
                         case 'b':
                             stillObjects.add(new BombItem(j,i,Sprite.powerup_bombs.getFxImage()));
@@ -143,6 +146,7 @@ public class BombermanGame extends Application {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        createMap();
     }
 
     public void update() {
