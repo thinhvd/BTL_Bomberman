@@ -116,6 +116,10 @@ public class Bomber extends AnimatedEntities {
         }
     }
 
+    public int canvasToBomb(int a) {
+        return Math.round(a + 6) / Sprite.SCALED_SIZE;
+    }
+
     public void placeBomb() {
         if (bombRemain > 0) {
             Bomb bomb = new Bomb(canvasToBomb(x), canvasToBomb(y), Sprite.bomb.getFxImage(), radius);
@@ -124,6 +128,7 @@ public class Bomber extends AnimatedEntities {
             }
             bombRemain--;
             bombs.add(bomb);
+            //BombermanGame.stillObjects.add(bomb);
         }
     }
 
@@ -132,6 +137,7 @@ public class Bomber extends AnimatedEntities {
             Bomb bomb = bombs.get(i);
             if (!bomb.isAlive()) {
                 bombs.remove(bomb);
+                //BombermanGame.stillObjects.remove(bomb);
                 bombRemain++;
             }
         }
@@ -153,6 +159,7 @@ public class Bomber extends AnimatedEntities {
         }
         if (e instanceof Enemy) {
             this.alive = false;
+            return false;
         }
         if (e instanceof Item) {
             if (e instanceof SpeedItem) {

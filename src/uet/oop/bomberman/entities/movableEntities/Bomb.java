@@ -43,7 +43,6 @@ public class Bomb extends AnimatedEntities {
     public boolean collide(Entity e) {
         if (e instanceof Flame) {
             this._timeToExplode = 0;
-            return false;
         }
         return false;
     }

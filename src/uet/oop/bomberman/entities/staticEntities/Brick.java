@@ -20,7 +20,7 @@ public class Brick extends Entity {
     public void update() {
         if (!isAlive()) {
             _timeToVanish--;
-            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.bomb_exploded2, animate++, 60).getFxImage();
+            img = Sprite.movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.bomb_exploded2, animate++, 20).getFxImage();
             if (_timeToVanish == 0) BombermanGame.stillObjects.remove(this);
         }
     }

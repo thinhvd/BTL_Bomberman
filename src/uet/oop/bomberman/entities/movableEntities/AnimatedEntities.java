@@ -18,10 +18,6 @@ public abstract class AnimatedEntities extends Entity {
     protected int up = 0;
     protected int down = 0;
 
-    public int canvasToBomb(int a) {
-        return Math.round(a + 6) / Sprite.SCALED_SIZE;
-    }
-
     public AnimatedEntities(int x, int y, Image img) {
         super(x,y,img);
     }

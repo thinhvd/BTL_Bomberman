@@ -51,8 +51,17 @@ public abstract class Enemy extends AnimatedEntities {
     }
 
     public void calculateMove() {
-        for (Enemy e : BombermanGame.enemies) {
-            for (Entity o : BombermanGame.stillObjects) {
+        for (Enemy e : BombermanGame.enemies) {for (Entity o : Bomber.bombs) {
+                if (e.bound().intersects(o.bound())) {
+                    if (e.collide(o)) {
+                        e.stay();
+                    } else {
+                        e.move();
+                    }
+                }
+            }
+            for (Entity o : BombermanGame.enemies) {
+                if (e.equals(o)) continue;
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         e.move();
@@ -61,7 +70,8 @@ public abstract class Enemy extends AnimatedEntities {
                     }
                 }
             }
-            for (Entity o : Bomber.bombs) {
+            //return;
+            for (Entity o : BombermanGame.stillObjects) {
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         e.move();
@@ -102,7 +112,12 @@ public abstract class Enemy extends AnimatedEntities {
         if (e.bound().intersects(this.bound()) && e instanceof Bomber) {
             return e.collide(this);
         }
-        if (e instanceof Wall || e instanceof Brick || e instanceof Bomb) return e.collide(this);
+        if (e instanceof Wall || e instanceof Brick) {
+            return e.collide(this);
+        }
+        if (e instanceof Enemy) {
+            return false;
+        }
         return true;
     }
 
