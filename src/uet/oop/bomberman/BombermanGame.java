@@ -26,7 +26,7 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    public int level = 2;
+    public int level = 1;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -115,15 +115,15 @@ public class BombermanGame extends Application {
                             enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));
                             break;
                         case 'b':
-                            stillObjects.add(new BombItem(j,i,Sprite.powerup_bombs.getFxImage()));
+                            stillObjects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 'f':
-                            stillObjects.add(new FlameItem(j,i,Sprite.powerup_flames.getFxImage()));
+                            stillObjects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 's':
-                            stillObjects.add(new SpeedItem(j,i,Sprite.powerup_speed.getFxImage()));
+                            stillObjects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                     }

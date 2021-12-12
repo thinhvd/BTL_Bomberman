@@ -17,7 +17,12 @@ public class SpriteSheet {
 	public BufferedImage image;
 
 	public static SpriteSheet tiles = new SpriteSheet("/textures/classic.png", 256);
-	public static SpriteSheet grass = new SpriteSheet("/textures/grass.png", 25);
+	public static SpriteSheet grass = new SpriteSheet("/textures/grass1.png", 18);
+	public static SpriteSheet wall = new SpriteSheet("/textures/wall3.png",16);
+	public static SpriteSheet powerBomb = new SpriteSheet("/textures/power_bomb.png",16);
+	public static SpriteSheet powerSpeed = new SpriteSheet("/textures/power_speed.png",16);
+	public static SpriteSheet powerFlame = new SpriteSheet("/textures/power_firemax.png",16);
+	public static SpriteSheet player = new SpriteSheet("/textures/classic.png", 959);
 
 	public SpriteSheet(String path, int size) {
 		_path = path;
