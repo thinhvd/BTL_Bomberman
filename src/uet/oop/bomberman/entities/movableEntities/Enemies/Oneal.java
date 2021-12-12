@@ -37,5 +37,4 @@ public class Oneal extends Enemy {
     public void spriteDown() {
         img = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, down++, 60).getFxImage();
     }
-
 }

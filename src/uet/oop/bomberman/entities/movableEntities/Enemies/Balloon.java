@@ -41,10 +41,4 @@ public class Balloon extends Enemy {
     public void spriteDown() {
         img = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, down++, 60).getFxImage();
     }
-
-    public Rectangle bound() {
-        return new Rectangle(newX, newY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);
-    }
-
-
 }

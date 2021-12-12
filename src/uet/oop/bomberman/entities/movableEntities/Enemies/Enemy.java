@@ -51,16 +51,13 @@ public abstract class Enemy extends AnimatedEntities {
     }
 
     public void calculateMove() {
-        for (Enemy e : BombermanGame.enemies) {for (Entity o : Bomber.bombs) {
+        for (Enemy e : BombermanGame.enemies) {
+            for (Bomb o : Bomber.bombs) {
                 if (e.bound().intersects(o.bound())) {
-                    if (e.collide(o)) {
                         e.stay();
-                    } else {
-                        e.move();
-                    }
                 }
             }
-            for (Entity o : BombermanGame.enemies) {
+            for (Enemy o : BombermanGame.enemies) {
                 if (e.equals(o)) continue;
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
