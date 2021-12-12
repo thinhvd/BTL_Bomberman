@@ -16,7 +16,7 @@ public class Sound {
     private Clip clip;
 
     public Sound(String filename) {
-        String path = "F:\\codejava\\BTL_Bomberman\\res\\Sound\\" + filename + ".wav";
+        String path = "D:\\BTL_Bomberman\\res\\Sound\\" + filename + ".wav";
         try {
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(path));
             clip = AudioSystem.getClip();

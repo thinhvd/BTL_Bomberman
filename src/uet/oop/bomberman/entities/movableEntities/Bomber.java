@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -170,7 +169,7 @@ public class Bomber extends AnimatedEntities {
 
     @Override
     public Rectangle bound() {
-        return new Rectangle(newX + 4, newY + 10, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE - 11);
+        return new Rectangle(newX + 4, newY + 6, Sprite.SCALED_SIZE - 12, Sprite.SCALED_SIZE - 11);
     }
 
     public boolean collide(Entity e) {
@@ -179,6 +178,9 @@ public class Bomber extends AnimatedEntities {
             return true;
         }
         if (e instanceof Enemy) {
+            for (Enemy enemy : BombermanGame.enemies) {
+                enemy.getAwayFromMe();
+            }
             this.alive = false;
             return false;
         }

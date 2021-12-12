@@ -26,7 +26,7 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    public int level = 1;
+    public int level = 2;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -107,6 +107,9 @@ public class BombermanGame extends Application {
                             break;
                         case '4':
                             enemies.add(new Ghost(j, i, Sprite.ghost_left1.getFxImage()));
+                            break;
+                        case '3':
+                            enemies.add(new Minvo(j, i, Sprite.minvo_left1.getFxImage()));
                             break;
                         case '5':
                             enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));

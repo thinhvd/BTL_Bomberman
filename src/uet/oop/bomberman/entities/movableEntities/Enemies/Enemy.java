@@ -18,9 +18,13 @@ public abstract class Enemy extends AnimatedEntities {
     protected int direction;
     protected int _timeToVanish = 60;
     protected int animate = 0;
+    protected int _x;
+    protected int _y;
 
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
+        _x = x;
+        _y = y;
     }
 
     @Override
@@ -60,6 +64,7 @@ public abstract class Enemy extends AnimatedEntities {
             }
             for (Enemy o : BombermanGame.enemies) {
                 if (e.equals(o)) continue;
+                if (e instanceof Ghost || o instanceof Ghost) continue;
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {
                         e.move();
@@ -123,6 +128,11 @@ public abstract class Enemy extends AnimatedEntities {
         return true;
     }
 
+    public void getAwayFromMe(){
+        super.stay();
+        x = _x * Sprite.SCALED_SIZE;
+        y = _y * Sprite.SCALED_SIZE;
+    }
     @Override
     public Rectangle bound() {
         return new Rectangle(newX, newY, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE);

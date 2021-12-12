@@ -21,12 +21,16 @@ public class Ghost extends Enemy {
     }
 
     public void calculateMove() {
-        if (newX / Sprite.SCALED_SIZE == 0 || newX / Sprite.SCALED_SIZE == 30
-                || newY / Sprite.SCALED_SIZE == 0 || newY / Sprite.SCALED_SIZE == 12
-                || newX / Sprite.SCALED_SIZE == BombermanGame.bomber.getNewX() / Sprite.SCALED_SIZE - 1
-                || newY / Sprite.SCALED_SIZE == BombermanGame.bomber.getNewY() / Sprite.SCALED_SIZE - 1) {
+        if (newX / Sprite.SCALED_SIZE == 0 || newX / Sprite.SCALED_SIZE == 29
+                || newY / Sprite.SCALED_SIZE == 0 || newY / Sprite.SCALED_SIZE == 11
+                || newX / Sprite.SCALED_SIZE == (BombermanGame.bomber.getNewX() / Sprite.SCALED_SIZE) - 1
+                || newY / Sprite.SCALED_SIZE == (BombermanGame.bomber.getNewY() / Sprite.SCALED_SIZE) - 1) {
             stay();
         }
+        if (direction == 0) goLeft();
+        if (direction == 1) goRight();
+        if (direction == 2) goUp();
+        if (direction == 3) goDown();
     }
 
     public void spriteLeft() {
