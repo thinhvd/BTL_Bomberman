@@ -2,7 +2,7 @@ package uet.oop.bomberman.entities.movableEntities.Enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.Sound;
+import uet.oop.bomberman.Sound.Sound;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.AnimatedEntities;
 import uet.oop.bomberman.entities.movableEntities.Bomb;
@@ -73,7 +73,6 @@ public abstract class Enemy extends AnimatedEntities {
                     }
                 }
             }
-            //return;
             for (Entity o : BombermanGame.stillObjects) {
                 if (e.bound().intersects(o.bound())) {
                     if (e.collide(o)) {

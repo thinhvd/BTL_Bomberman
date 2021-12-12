@@ -1,16 +1,7 @@
 package uet.oop.bomberman.entities.movableEntities.Enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.movableEntities.Bomb;
-import uet.oop.bomberman.entities.movableEntities.Bomber;
-import uet.oop.bomberman.entities.movableEntities.Flame;
-import uet.oop.bomberman.entities.staticEntities.Brick;
-import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
-
-import java.awt.*;
 import java.util.Random;
 
 public class Balloon extends Enemy {

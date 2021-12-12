@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.Random;
-
 public class Ghost extends Enemy {
     public Ghost(int x, int y, Image img) {
         super(x, y, img);

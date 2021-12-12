@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities.movableEntities.Enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-
 import java.util.Random;
 
 public class Doll extends Enemy{

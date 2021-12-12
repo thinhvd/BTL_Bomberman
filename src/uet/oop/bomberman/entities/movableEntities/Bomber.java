@@ -3,12 +3,11 @@ package uet.oop.bomberman.entities.movableEntities;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.Sound;
+import uet.oop.bomberman.Sound.Sound;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.*;
 import uet.oop.bomberman.graphics.Sprite;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +20,8 @@ public class Bomber extends AnimatedEntities {
     private int radius;
     private boolean bombSet = false;
     private int _timeToVanish = 40;
-    //private int _timeToReborn = 40;
     private int animate = 0;
     private boolean soundPlayed = false;
-    private boolean passThroughBomb = true;
     public int countStep = 0;
 
     public Bomber(int x, int y, Image img) {
@@ -73,7 +70,6 @@ public class Bomber extends AnimatedEntities {
 
             calculateMove();
 
-
         }
         if (_timeBetweenPutBombs < -10000) _timeBetweenPutBombs = 0;
         else _timeBetweenPutBombs--;
@@ -84,7 +80,6 @@ public class Bomber extends AnimatedEntities {
     public void KeyPressedEvent(KeyCode keyCode) {
         if (keyCode == KeyCode.LEFT || keyCode == KeyCode.RIGHT || keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
             direction = keyCode;
-
         }
         if (keyCode == KeyCode.SPACE) bombSet = true;
     }
@@ -142,7 +137,6 @@ public class Bomber extends AnimatedEntities {
             placeBomb.play();
             bombRemain--;
             bombs.add(bomb);
-            //BombermanGame.stillObjects.add(bomb);
         }
     }
 
@@ -151,7 +145,6 @@ public class Bomber extends AnimatedEntities {
             Bomb bomb = bombs.get(i);
             if (!bomb.isAlive()) {
                 bombs.remove(bomb);
-                //BombermanGame.stillObjects.remove(bomb);
                 bombRemain++;
             }
         }
@@ -173,7 +166,7 @@ public class Bomber extends AnimatedEntities {
     }
 
     public boolean collide(Entity e) {
-        if (e instanceof Flame) { // sai o day || e instanceof Enemy
+        if (e instanceof Flame) {
             this.alive = false;
             return true;
         }

@@ -3,8 +3,6 @@ package uet.oop.bomberman.entities.movableEntities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Balloon;
-import uet.oop.bomberman.entities.movableEntities.Enemies.Enemy;
 import uet.oop.bomberman.entities.staticEntities.Brick;
 import uet.oop.bomberman.entities.staticEntities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
@@ -23,13 +21,11 @@ public class Flame extends Entity {
 
     public Flame(int x, int y, Image img, String direction) {
         super(x, y, img);
-        //this.radius = 1;
         this.direction = direction;
     }
 
     public Flame(int x, int y) {
         super(x, y);
-        //this.radius = 1;
     }
 
     @Override

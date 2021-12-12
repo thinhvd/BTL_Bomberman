@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.Sound.Sound;
 import uet.oop.bomberman.entities.Layer;
 import uet.oop.bomberman.entities.movableEntities.Bomb;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
@@ -23,23 +24,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BombermanGame extends Application {
-
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
-    public int level = 1;
+    public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
+    public int level = 2;
 
     private GraphicsContext gc;
     private Canvas canvas;
 
     public static List<Entity> stillObjects = new ArrayList<>();
     public static List<Enemy> enemies = new ArrayList<>();
-    public static Bomber bomber;
-
     public static List<Flame> flames = new ArrayList<>();
-
-
-    public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
-
+    public static Bomber bomber;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -115,15 +111,15 @@ public class BombermanGame extends Application {
                             enemies.add(new Doll(j, i, Sprite.ghost_left1.getFxImage()));
                             break;
                         case 'b':
-                            stillObjects.add(new BombItem(j, i, Sprite.powerup_bombs.getFxImage()));
+                            stillObjects.add(new BombItem(j,i,Sprite.powerup_bombs.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 'f':
-                            stillObjects.add(new FlameItem(j, i, Sprite.powerup_flames.getFxImage()));
+                            stillObjects.add(new FlameItem(j,i,Sprite.powerup_flames.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                         case 's':
-                            stillObjects.add(new SpeedItem(j, i, Sprite.powerup_speed.getFxImage()));
+                            stillObjects.add(new SpeedItem(j,i,Sprite.powerup_speed.getFxImage()));
                             stillObjects.add(new Brick(j, i, Sprite.brick.getFxImage()));
                             break;
                     }
@@ -184,15 +180,5 @@ public class BombermanGame extends Application {
         bombs.forEach(g -> g.render(gc));
         flames.forEach(g -> g.render(gc));
 
-    }
-
-    public static Entity getEntity(int x, int y) {
-        int i = 0;
-        while (i < stillObjects.size()) {
-            if (stillObjects.get(i).getX() / Sprite.SCALED_SIZE == x && stillObjects.get(i).getY() / Sprite.SCALED_SIZE == y)
-                break;
-            i++;
-        }
-        return stillObjects.get(i);
     }
 }
