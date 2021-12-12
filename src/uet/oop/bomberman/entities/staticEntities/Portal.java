@@ -1,9 +1,12 @@
 package uet.oop.bomberman.entities.staticEntities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.movableEntities.Bomber;
 
 public class Portal extends Entity {
+    public int level = 1;
     public Portal(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
@@ -16,6 +19,10 @@ public class Portal extends Entity {
 
     @Override
     public boolean collide(Entity e) {
-        return true;
+        if (e.bound().intersects(this.bound()) && BombermanGame.enemies.isEmpty()) {
+            level++;
+            BombermanGame.loadLevel(level);
+        }
+        return false;
     }
 }

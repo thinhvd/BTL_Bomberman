@@ -1,6 +1,8 @@
 package uet.oop.bomberman.entities.movableEntities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -10,6 +12,7 @@ public class Bomb extends AnimatedEntities {
     boolean bombSet = false;// delete later
     private int radius;
     int animate = 0;
+    private boolean allowedToPassThrough;
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
@@ -34,6 +37,8 @@ public class Bomb extends AnimatedEntities {
 
     public void explode() {
         Flame flame = new Flame(x, y);
+        Sound bombExplode = new Sound(Sound.bombExplode);
+        bombExplode.play();
         flame.setRadius(radius);
         flame.flameExplode();
         alive = false;
@@ -44,7 +49,8 @@ public class Bomb extends AnimatedEntities {
         if (e instanceof Flame) {
             this._timeToExplode = 0;
         }
-        return false;
+        //if (e instanceof Bomber && allowedToPassThrough)
+        return true;
     }
 
     public int getX() {

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.staticEntities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Sound;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.movableEntities.Bomber;
 
@@ -13,7 +14,11 @@ public abstract class Item extends Entity {
 
     @Override
     public void update() {
-        if (!isAlive()) BombermanGame.stillObjects.remove(this);
+        if (!isAlive()) {
+            Sound playerDead = new Sound(Sound.pickItem);
+            playerDead.play();
+            BombermanGame.stillObjects.remove(this);
+        }
     }
 
     @Override

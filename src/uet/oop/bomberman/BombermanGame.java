@@ -38,7 +38,7 @@ public class BombermanGame extends Application {
     public static List<Flame> flames = new ArrayList<>();
 
 
-    public char[][] mapMatrix = new char[HEIGHT][WIDTH];
+    public static char[][] mapMatrix = new char[HEIGHT][WIDTH];
 
 
     public static void main(String[] args) {
@@ -47,6 +47,8 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        Sound soundTrack = new Sound(Sound.soundTrack);
+        soundTrack.loop();
         loadLevel(level);
 
         // Tao Canvas
@@ -79,7 +81,7 @@ public class BombermanGame extends Application {
         scene.setOnKeyReleased(event -> bomber.KeyReleasedEvent(event.getCode()));
     }
 
-    public void createMap() {
+    public static void createMap() {
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 if (mapMatrix[i][j] == '#') {
@@ -128,7 +130,7 @@ public class BombermanGame extends Application {
         stillObjects.sort(new Layer());
     }
 
-    public void loadLevel(int _level) {
+    public static void loadLevel(int _level) {
         String levelPath = "res/levels/Level" + _level + ".txt";
         try {
             Scanner sc = new Scanner(new FileReader(levelPath));
