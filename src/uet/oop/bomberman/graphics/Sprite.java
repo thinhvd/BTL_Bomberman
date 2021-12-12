@@ -26,7 +26,7 @@ public class Sprite {
     |--------------------------------------------------------------------------
      */
     public static Sprite grass = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.grass, 16, 16);
-    public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
+    public static Sprite brick = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.brick, 16, 16);
     public static Sprite wall = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.wall, 16, 16);
     public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
 
