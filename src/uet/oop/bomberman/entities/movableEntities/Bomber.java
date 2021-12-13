@@ -105,9 +105,9 @@ public class Bomber extends AnimatedEntities {
 
 
     public void calculateMove() {
-        for (Entity e : BombermanGame.stillObjects) {
-            if (BombermanGame.bomber.bound().intersects(e.bound())) {
-                if (BombermanGame.bomber.collide(e)) {
+        for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+            if (BombermanGame.bomber.bound().intersects(BombermanGame.stillObjects.get(i).bound())) {
+                if (BombermanGame.bomber.collide(BombermanGame.stillObjects.get(i))) {
                     BombermanGame.bomber.move();
                 } else {
                     BombermanGame.bomber.stay();

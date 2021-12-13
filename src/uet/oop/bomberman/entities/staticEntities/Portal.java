@@ -5,7 +5,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 
 public class Portal extends Entity {
-    public int level = 1;
+    public int level = 2;
     public Portal(int x, int y, Image img) {
         super(x, y, img);
         layer = 1;
